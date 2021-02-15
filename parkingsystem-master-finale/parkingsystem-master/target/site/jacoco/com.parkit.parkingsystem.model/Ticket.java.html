@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ticket.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">parking-system</a> &gt; <a href="index.source.html" class="el_package">com.parkit.parkingsystem.model</a> &gt; <span class="el_source">Ticket.java</span></div><h1>Ticket.java</h1><pre class="source lang-java linenums">package com.parkit.parkingsystem.model;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+import com.parkit.parkingsystem.config.DataBaseConfig;
+
+<span class="fc" id="L9">public class Ticket {</span>
+	private int id;
+    private ParkingSpot parkingSpot;
+    private String vehicleRegNumber;
+    private double price;
+    private Date inTime;
+    private Date outTime;
+
+    public int getId() {
+<span class="fc" id="L18">        return id;</span>
+    }
+
+    public int getNewTicketID() throws ClassNotFoundException, SQLException
+    {
+<span class="fc" id="L23">    	Connection con = null;</span>
+<span class="fc" id="L24">    	DataBaseConfig dataBaseConfig = new DataBaseConfig(); </span>
+<span class="fc" id="L25">    	con = dataBaseConfig.getConnection();</span>
+<span class="fc" id="L26">    	java.sql.Statement stmt = con.createStatement();</span>
+<span class="fc" id="L27">    	ResultSet rs = stmt.executeQuery(&quot;SELECT Max(ID) as ticketID FROM ticket&quot;);</span>
+<span class="fc" id="L28">    	int ticketID = 0;</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">    	if (rs.next())</span>
+    	{
+<span class="fc" id="L31">    	    ticketID = rs.getInt(&quot;ticketID&quot;);</span>
+
+    	    
+    	}
+<span class="fc" id="L35">    	return ticketID + 1;</span>
+    	
+    }
+    public void setId(int id) {
+<span class="fc" id="L39">        this.id = id;</span>
+<span class="fc" id="L40">    }</span>
+
+    public ParkingSpot getParkingSpot() {
+<span class="fc" id="L43">        return parkingSpot;</span>
+    }
+
+    public void setParkingSpot(ParkingSpot parkingSpot) {
+<span class="fc" id="L47">        this.parkingSpot = parkingSpot;</span>
+<span class="fc" id="L48">    }</span>
+
+    public String getVehicleRegNumber() {
+<span class="fc" id="L51">        return vehicleRegNumber;</span>
+    }
+
+    public void setVehicleRegNumber(String vehicleRegNumber) {
+<span class="fc" id="L55">        this.vehicleRegNumber = vehicleRegNumber;</span>
+<span class="fc" id="L56">    }</span>
+
+    public double getPrice() {
+<span class="fc" id="L59">        return price;</span>
+    }
+
+    public void setPrice(double price) {
+<span class="fc" id="L63">        this.price = price;</span>
+<span class="fc" id="L64">    }</span>
+
+    public Date getInTime() {
+<span class="fc" id="L67">        return inTime;</span>
+    }
+
+    public void setInTime(Date inTime) {
+<span class="fc" id="L71">        this.inTime = inTime;</span>
+<span class="fc" id="L72">    }</span>
+
+    public Date getOutTime() {
+<span class="fc" id="L75">        return outTime;</span>
+    }
+
+    public void setOutTime(Date outTime) {
+<span class="fc" id="L79">        this.outTime = outTime;</span>
+<span class="fc" id="L80">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

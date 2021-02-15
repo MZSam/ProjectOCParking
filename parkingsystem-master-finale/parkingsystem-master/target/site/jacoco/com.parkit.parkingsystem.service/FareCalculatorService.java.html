@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FareCalculatorService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">parking-system</a> &gt; <a href="index.source.html" class="el_package">com.parkit.parkingsystem.service</a> &gt; <span class="el_source">FareCalculatorService.java</span></div><h1>FareCalculatorService.java</h1><pre class="source lang-java linenums">package com.parkit.parkingsystem.service;
+
+import com.parkit.parkingsystem.constants.Fare;
+import com.parkit.parkingsystem.model.Ticket;
+
+<span class="fc" id="L6">public class FareCalculatorService {</span>
+
+    public void calculateFare(Ticket ticket){
+<span class="fc bfc" id="L9" title="All 4 branches covered.">        if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){</span>
+<span class="fc bfc" id="L10" title="All 2 branches covered.">        	if (ticket.getOutTime() != null)</span>
+        	{
+<span class="fc" id="L12">        		throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot;+ticket.getOutTime().toString()); // à corriger</span>
+       
+        	}
+        	else
+        	{
+<span class="fc" id="L17">        		throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot;);</span>
+        	}
+        }
+        	
+
+      /*  int inHour = ticket.getInTime();
+        int outHour = ticket.getOutTime();*/
+
+        //TODO: Some tests are failing here. Need to check if this logic is correct
+<span class="fc" id="L26">        double duration = ((Math.abs(ticket.getOutTime().getTime() - ticket.getInTime().getTime()))/(60 * 1000))/60.00;</span>
+
+<span class="fc bfc" id="L28" title="All 3 branches covered.">        switch (ticket.getParkingSpot().getParkingType()){</span>
+            case CAR: {
+<span class="fc" id="L30">                ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
+<span class="fc" id="L31">                break;</span>
+            }
+            case BIKE: {
+<span class="fc" id="L34">                ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L35">                break;</span>
+            }
+<span class="fc" id="L37">            default: throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
+        }
+<span class="fc" id="L39">    }</span>
+    
+    public void calculateFareHalfHour(Ticket ticket){
+<span class="fc bfc" id="L42" title="All 4 branches covered.">        if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        	if (ticket.getOutTime() != null)</span>
+        	{
+<span class="fc" id="L45">        		throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot;+ticket.getOutTime().toString()); // à corriger</span>
+       
+        	}
+        	else
+        	{
+<span class="fc" id="L50">        		throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot;);</span>
+        	}
+        }
+        	
+
+      /*  int inHour = ticket.getInTime();
+        int outHour = ticket.getOutTime();*/
+
+        //TODO: Some tests are failing here. Need to check if this logic is correct
+<span class="fc" id="L59">        double duration = ((Math.abs(ticket.getOutTime().getTime() - ticket.getInTime().getTime()))/(60 * 1000))/60.00;</span>
+<span class="fc" id="L60">        double freeDuration = 30;</span>
+<span class="fc" id="L61">        duration = ((duration * 60) - freeDuration)/60;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (duration &lt;0)</span>
+        {
+<span class="fc" id="L64">        	duration = 0;</span>
+        }
+<span class="fc bfc" id="L66" title="All 3 branches covered.">        switch (ticket.getParkingSpot().getParkingType()){</span>
+            case CAR: {
+<span class="fc" id="L68">                ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
+<span class="fc" id="L69">                break;</span>
+            }
+            case BIKE: {
+<span class="fc" id="L72">                ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L73">                break;</span>
+            }
+<span class="fc" id="L75">            default: throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
+        }
+<span class="fc" id="L77">    }</span>
+    
+    
+    
+    
+    public void calculateFareReduction(Ticket ticket, boolean isFrequence){
+<span class="fc bfc" id="L83" title="All 4 branches covered.">        if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        	if (ticket.getOutTime() != null)</span>
+        	{
+<span class="fc" id="L86">        		throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot;+ticket.getOutTime().toString()); // à corriger</span>
+       
+        	}
+        	else
+        	{
+<span class="fc" id="L91">        		throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot;);</span>
+        	}
+        }
+        	
+
+      /*  int inHour = ticket.getInTime();
+        int outHour = ticket.getOutTime();*/
+
+        //TODO: Some tests are failing here. Need to check if this logic is correct
+<span class="fc" id="L100">        double duration = ((Math.abs(ticket.getOutTime().getTime() - ticket.getInTime().getTime()))/(60 * 1000))/60.00;</span>
+<span class="fc" id="L101">        double price = 0;</span>
+<span class="fc bfc" id="L102" title="All 3 branches covered.">        switch (ticket.getParkingSpot().getParkingType()){</span>
+            case CAR: {
+<span class="fc" id="L104">            	price = duration * Fare.CAR_RATE_PER_HOUR;</span>
+<span class="fc" id="L105">            	price = price - (0.05 * price);</span>
+<span class="fc" id="L106">                ticket.setPrice(price);</span>
+<span class="fc" id="L107">                break;</span>
+            }
+            case BIKE: {
+<span class="fc" id="L110">            	price = duration * Fare.BIKE_RATE_PER_HOUR;</span>
+<span class="fc" id="L111">            	price = price - (0.05 * price);</span>
+<span class="fc" id="L112">            	ticket.setPrice(price);</span>
+<span class="fc" id="L113">                break;</span>
+            }
+<span class="fc" id="L115">            default: throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
+        }
+<span class="fc" id="L117">    }</span>
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
